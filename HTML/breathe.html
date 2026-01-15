@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Breathing Exercise</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+
+    <style>
+        .breathe {
+
+            /* height: 100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center; */
+            background: linear-gradient(90deg,
+                    #FFF2F7 0%,
+                    #F7F1FF 45%,
+                    #EEF6FF 100%);
+            font-family: Georgia, serif;
+            text-align: center;
+        }
+
+        .texts {
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #2c2c54;
+        }
+
+        .circleone {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 23px solid rgba(170, 180, 255, 0.6);
+            background: rgba(220, 230, 255, 0.7);
+
+            transform: scale(1);
+            /* START SMALL */
+            transition: transform 5s ease-in-out;
+        }
+
+
+        .circleone::before {
+            content: "";
+            position: absolute;
+            inset: -40px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(170, 180, 255, 0.45),
+                    rgba(170, 180, 255, 0.2),
+                    transparent 70%);
+            filter: blur(25px);
+            z-index: -1;
+        }
+
+        .breathe-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+        }
+
+
+        .note {
+            margin-top: 50px;
+            font-size: 18px;
+            color: #444;
+        }
+    </style>
+</head>
+
+<body class="breathe">
+    <div class="total">
+        <div class="logo-heading">
+            <h2>🧭Mood Compass</h2>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="journal.html">📝Journal</a></li>
+                <li><a href="breathe.html">🫁Breathe</a></li>
+                <li><a href="history.html">📊History</a></li>
+                <li><a href="tips.html">💡Tips</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="breathe-content">
+        <h1 id="text" class="texts">Get Ready...</h1>
+
+        <div id="circle" class="circleone"></div>
+
+        <p class="note">Follow the circle. Let each breath bring you peace.</p>
+
+    </div>
+
+
+    <script>
+        let circle = document.getElementById("circle");
+        let text = document.getElementById("text");
+
+        function breathe() {
+
+            // IN – 5 sec
+            text.innerText = "Breathe In...";
+            circle.style.transform = "scale(1.4)";
+
+            // HOLD – 4 sec
+            setTimeout(() => {
+                text.innerText = "Hold...";
+            }, 5000);
+
+            // OUT – 5 sec
+            setTimeout(() => {
+                text.innerText = "Breathe Out...";
+                circle.style.transform = "scale(0.8)";
+            }, 9000);
+        }
+
+
+        window.onload = () => {
+
+
+            setTimeout(() => {
+                breathe();
+                setInterval(breathe, 14000);
+            }, 1000);
+
+        };
+    </script>
+
+</body>
+
+</html>
