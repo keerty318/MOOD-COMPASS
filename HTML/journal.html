@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 </head>
+
 <body class="pg-journal">
     <div class="total">
         <div class="logo-heading">
@@ -30,14 +32,52 @@
             <p style=" color: #6b7280;">Express yourself freely. Your thoughts are safe here.</p>
         </div>
         <div class="entry-box" style="text-align: center;">
-           <textarea placeholder="Write what's on your mind..."></textarea>
-           <div class="entry-box-bg">
-                <button>Save Entry</button>
-           </div>
+            <textarea id="journalText" placeholder="Write what's on your mind..."></textarea>
+
+            <div class="entry-box-bg">
+                <button onclick="saveEntry()">Save Entry</button>
+            </div>
+
+           
         </div>
-       
+
 
     </div>
-    
+    <script>
+        function saveEntry() {
+            const journalText = document.getElementById("journalText").value.trim();
+            const selectedMood = JSON.parse(localStorage.getItem("selectedMood"));
+
+            if (!selectedMood) {
+                alert("Select a mood first");
+                return;
+            }
+
+            if (journalText === "") {
+                alert("Write something");
+                return;
+            }
+
+            const now = new Date();
+            const entry = {
+                date: now.toISOString().split("T")[0],
+                time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                mood: selectedMood.mood,
+                emoji: selectedMood.emoji,
+                journal: journalText
+            };
+
+            let moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+            moodHistory.push(entry);
+
+            localStorage.setItem("moodHistory", JSON.stringify(moodHistory));
+            localStorage.removeItem("selectedMood");
+
+            alert("Saved ❤️");
+            document.getElementById("journalText").value = "";
+        }
+    </script>
+
 </body>
+
 </html>

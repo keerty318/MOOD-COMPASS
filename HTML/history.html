@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Compass</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body class="history">
+    <div >
+        
+        <div class="total">
+        <div class="logo-heading">
+            <h2>🧭Mood Compass</h2>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="journal.html">📝Journal</a></li>
+                <li><a href="breathe.html">🫁Breathe</a></li>
+                <li><a href="history.html">📊History</a></li>
+                <li><a href="tips.html">💡Tips</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    </div>
+    <h2>Today's Mood</h2>
+<div id="todayMood"></div>
+
+<h2>Most Frequent Mood</h2>
+<div id="frequentMood"></div>
+
+<h2>Recent Mood Timeline</h2>
+<div id="timeline"></div>
+
+<script>
+const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+
+/* TODAY */
+const today = new Date().toISOString().split("T")[0];
+const todayEntry = [...moodHistory].reverse().find(e => e.date === today);
+
+document.getElementById("todayMood").innerText =
+    todayEntry ? `${todayEntry.emoji} ${todayEntry.mood}` : "No mood today";
+
+/* MOST FREQUENT */
+if (moodHistory.length > 0) {
+    const count = {};
+    moodHistory.forEach(e => count[e.mood] = (count[e.mood] || 0) + 1);
+
+    const mostMood = Object.keys(count)
+        .reduce((a, b) => count[a] > count[b] ? a : b);
+
+    const emoji = moodHistory.find(e => e.mood === mostMood).emoji;
+    document.getElementById("frequentMood").innerText = `${emoji} ${mostMood}`;
+}
+
+/* TIMELINE */
+const timeline = document.getElementById("timeline");
+
+if (moodHistory.length === 0) {
+    timeline.innerText = "No history yet";
+} else {
+    timeline.innerHTML = "";
+    moodHistory.slice().reverse().forEach(e => {
+        timeline.innerHTML += `
+            <div style="margin-bottom:10px;">
+                <strong>${e.emoji} ${e.mood}</strong>
+                <p>${e.journal}</p>
+                <small>${e.date} ${e.time}</small>
+            </div>
+        `;
+    });
+}
+</script>
+
+
+    
+    
+</body>
+</html>
