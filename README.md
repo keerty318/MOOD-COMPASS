@@ -2,7 +2,10 @@
 
 MoodCompass is a simple and interactive mood journaling web application that helps users reflect on their emotions. Users can choose their current mood, write journal entries, practice breathing exercises, view their mood history, and explore self-care tips—all in a clean and calming interface.
 
----
+## 🌐 Live Demo
+
+**🔗 Website:** https://mood-compass-ashen.vercel.app/
+
 
 ## ✨ Features
 
